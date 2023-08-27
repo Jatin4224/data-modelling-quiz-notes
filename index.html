@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Modeling and ER Diagrams</title>
+  <style>
+    /* Import the custom font */
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    header {
+      background-color: #35495e;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2em;
+      background-color: #262626;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #e0e0e0;
+      font-weight: bold;
+      font-size: 2.8em;
+      /* Adjust the font size */
+      margin-bottom: 0.5em;
+      /* Add some space below the header */
+    }
+
+    h2 {
+      font-weight: bold;
+      /* Make h2 headings thicker */
+      font-size: 1.8em;
+      /* Adjust the font size */
+      margin-top: 1em;
+      /* Add space above the heading */
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .note {
+      border-left: 5px solid #35495e;
+      padding-left: 1em;
+      margin: 1em 0;
+    }
+
+    .er-diagram {
+      text-align: center;
+      margin-top: 2em;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: 1.5em;
+    }
+
+    li {
+      margin-bottom: 0.5em;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #35495e;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-x: hidden;
+      padding-top: 20px;
+    }
+
+    .sidebar a {
+      padding: 15px 20px;
+      text-decoration: none;
+      font-size: 18px;
+      color: white;
+      display: block;
+    }
+
+    .sidebar a:hover {
+      background-color: #1a1a1a;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <a href="#" id="showNotes">Show Notes</a>
+    <a href="#" id="showQuiz">Take Quiz</a>
+  </div>
+
+  <div class="content">
+    <header>
+      <h1>Data Modeling and ER Diagrams</h1>
+      <p>Exploring concepts for effective data representation.</p>
+    </header>
+    <div class="container">
+      <div class="note">
+        <h2>ER Modeling</h2>
+        <p>A graphical technique for understanding and organizing data independent of the actual database
+          implementation.
+          ER modeling provides a structured way to represent entities, attributes, and relationships.</p>
+      </div>
+      <!-- Content will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <script>
+    const quizButton = document.getElementById("showQuiz");
+    const notesButton = document.getElementById("showNotes");
+    const contentArea = document.querySelector(".container");
+    const sidebar = document.querySelector(".sidebar");
+
+    quizButton.addEventListener("click", showQuiz);
+    notesButton.addEventListener("click", showNotes);
+
+    function showQuiz() {
+      contentArea.innerHTML = createQuizHTML();
+      const quizForm = document.getElementById("quizForm");
+      quizForm.addEventListener("submit", handleQuizSubmit);
+    }
+
+    function showNotes() {
+      contentArea.innerHTML = ""; // Clear existing content
+      const notesHTML = `
+          <div class="container">
+      <div class="note">
+        <h2>ER Modeling</h2>
+        <p>A graphical technique for understanding and organizing data independent of the actual database
+          implementation.
+          ER modeling provides a structured way to represent entities, attributes, and relationships.</p>
+      </div>
+      <div class="note">
+        <h2>Entity</h2>
+        <p>An entity is anything that has an independent existence and about which we collect data. It's also known as
+          an
+          entity type. In ER modeling, entities are depicted as rectangles.</p>
+      </div>
+      <div class="note">
+        <h2>Entity Instance</h2>
+        <p>An entity instance is a specific member of an entity type. For example, a specific employee is an instance of
+          the "Employee" entity type.</p>
+      </div>
+      <div class="note">
+        <h2>Regular Entity</h2>
+        <p>A regular entity is an entity that has its own unique key attribute. For instance, an "Employee" entity with
+          a
+          unique "EmployeeID" is a regular entity.</p>
+      </div>
+      <div class="note">
+        <h2>Weak Entity</h2>
+        <p>A weak entity is an entity that depends on another entity for its existence and doesn't have a key attribute
+          of
+          its own. In a parent/child relationship, the child is a weak entity.</p>
+      </div>
+      <div class="note">
+        <h2>Attributes</h2>
+        <p>Attributes are properties or characteristics that describe entities. They provide additional information
+          about
+          entities. Attributes can be simple (indivisible), composite (divisible into subparts), single-valued (hold a
+          single value), or multi-valued (hold multiple values).</p>
+      </div>
+      <div class="note">
+        <h2>Domain of Attributes</h2>
+        <p>The domain of an attribute is the set of possible values it can take. For example, the attribute "Day" might
+          have the domain {Monday, Tuesday, ..., Friday}.</p>
+      </div>
+      <div class="note">
+        <h2>Key Attribute</h2>
+        <p>A key attribute is an attribute or combination of attributes that uniquely identify each entity instance.
+          It's
+          used to differentiate instances from one another. A key attribute can be a simple or composite key.</p>
+      </div>
+      <div class="note">
+        <h2>Relationships</h2>
+        <p>Relationships represent associations between entities. They define how entities are connected and interact
+          with
+          each other. Relationships can be one-to-one (1:1), one-to-many (1:N), many-to-one (M:1), or many-to-many
+          (M:N).
+        </p>
+      </div>
+      <div class="note">
+        <h2>Degree of a Relationship</h2>
+        <p>The degree of a relationship indicates the number of entity types involved. It can be unary (1 entity type),
+          binary (2 entity types), or ternary (3 entity types).</p>
+      </div>
+      <div class="note">
+        <h2>Cardinality of a Relationship</h2>
+        <p>Cardinality specifies how many instances of one entity can be associated with instances of another entity
+          through a relationship. It can be one-to-one, one-to-many, many-to-one, or many-to-many.</p>
+      </div>
+      <div class="note">
+        <h2>Examples of Cardinality</h2>
+        <p>Examples include one-to-one (1:1) relationships where one entity instance is related to another entity
+          instance, one-to-many (1:N) relationships where one entity instance is related to multiple instances of
+          another
+          entity, and more.</p>
+      </div>
+        <!-- Add your notes content here -->
+      `;
+      contentArea.innerHTML = notesHTML;
+    }
+
+    function createQuizHTML() {
+      let quizHTML = '<form id="quizForm">';
+
+
+
+      const questions = [
+        {
+          question: "The attribute name could be structured as an attribute consisting of first name, middle initial, and last name. This type of attribute is called",
+          options: [
+            "a) Simple attribute",
+            "b) Composite attribute",
+            "c) Multivalued attribute",
+            "d) Derived attribute"
+          ],
+          answer: "b",
+        },
+        {
+          question: "The attribute AGE is calculated from DATE_OF_BIRTH. The attribute AGE is",
+          options: [
+            "a) Single valued",
+            "b) Multi valued",
+            "c) Composite",
+            "d) Derived"
+          ],
+          answer: "d",
+          explanation: "The value for this type of attribute can be derived from the values of other related attributes or entities."
+        },
+        {
+          question: "Not applicable condition can be represented in relation entry as",
+          options: [
+            "a) NA",
+            "b) 0",
+            "c) NULL",
+            "d) Blank Space"
+          ],
+          answer: "c",
+          explanation: "NULL always represents that the value is not present."
+        },
+        {
+          question: "Which of the following can be a multivalued attribute?",
+          options: [
+            "a) Phone_number",
+            "b) Name",
+            "c) Date_of_birth",
+            "d) All of the mentioned"
+          ],
+          answer: "a",
+          explanation: "Name and Date_of_birth cannot hold more than 1 value."
+        },
+        {
+          question: "Which of the following is a single valued attribute",
+          options: [
+            "a) Register_number",
+            "b) Address",
+            "c) SUBJECT_TAKEN",
+            "d) Reference"
+          ],
+          answer: "a",
+          explanation: "None."
+        },
+        {
+          question: "In a relation between the entities the type and condition of the relation should be specified. That is called as ______ attribute.",
+          options: [
+            "a) Descriptive",
+            "b) Derived",
+            "c) Recursive",
+            "d) Relative"
+          ],
+          answer: "a",
+          explanation: ""
+        }
+        // Your quiz questions here...
+      ];
+
+      questions.forEach((q, index) => {
+        quizHTML += `
+        
+          <div class="question">
+            <p>Question ${index + 1}: ${q.question}</p>
+            ${q.options.map((option, i) => `
+              <label><input type="radio" name="q${index + 1}" value="${String.fromCharCode(97 + i)}">${option}</label>
+            `).join("")}
+          </div>
+        `;
+      });
+
+      quizHTML += '<button type="submit">Submit Quiz</button></form>';
+      return quizHTML;
+    }
+
+    function handleQuizSubmit(event) {
+      event.preventDefault();
+      const quizForm = event.target;
+      const formData = new FormData(quizForm);
+      let score = 0;
+
+      formData.forEach((value, name) => {
+        questions.forEach((q, index) => {
+          if (name === `q${index + 1}` && value === q.answer) {
+            score++;
+          }
+        });
+      });
+
+      contentArea.innerHTML = `
+        <h2>Quiz Results</h2>
+        <p>Your score: ${score} out of ${questions.length}</p>
+      `;
+    }
+  </script>
+</body>
+
+</html>
